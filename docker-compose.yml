@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  mozillavpn:
+    build: ./
+    container_name: mozillavpn
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    environment:
+      - TZ=Europe/London
+    ports:
+      - 51820:51820/udp
+    restart: unless-stopped
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    volumes:
+      - ./config:/root
+      - /lib/modules:/lib/modules
+
